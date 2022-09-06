@@ -1,8 +1,8 @@
-name: Testing python matix package
+name: Testing python matrix package
 on: [push]
 jobs:
   build:
-    runs-on: ${{matix.os}}
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
