@@ -1,0 +1,32 @@
+name: Testing python matix package
+on: [push]
+jobs:
+  build:
+    runs-on: ${{matix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-versions: [2.7, 3.6, 3.8, pypy3]
+  steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{matrix.python-versions}}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{matrix.python-versions}}
+    # you can test your matrix by printing the current Python version
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
+    - name: Display Linux verion
+      run: uname -a
+    - name: Install dependencies
+      run: |
+       make install
+    - name: Lint
+      run: |
+        make lint
+    - name: Test
+      run: |
+        make test 
+    # - name: Format code
+    #   run: |
+    #     make format      
